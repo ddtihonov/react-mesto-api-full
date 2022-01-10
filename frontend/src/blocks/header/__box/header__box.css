@@ -1,0 +1,14 @@
+.header__box{
+    display: flex;
+    align-items: flex-end;
+    visibility: visible;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+@media (max-width: 768px){
+    .header__box{
+        visibility: hidden;
+        display: none;
+    }
+}

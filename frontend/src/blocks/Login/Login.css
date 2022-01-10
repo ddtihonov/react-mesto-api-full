@@ -1,0 +1,128 @@
+.login{
+    width: 880px;
+    margin: 0 auto;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 1024px){
+    .login{
+        max-width: calc(100% - (0px + 256 * ((100vw - 425px) / 599)));
+    }
+}
+
+@media (max-width: 425px){
+    .login{
+        max-width: 100%;
+        padding-top: 28px;
+    }
+}
+
+
+.login__form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.login__title{
+    max-width: 330px;
+    color: #FFF;
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: 900;
+    text-align: center;
+    margin: 0 auto 50px auto;
+}
+
+@media (max-width: 768px){
+    .login__title{
+        max-width: 238px;
+        font-size: 20px;
+        line-height: 24px;
+        margin: 0 auto 40px auto;
+    }
+}
+
+.login__button{
+    width: 358px;
+    margin: 230px auto 112px;
+    background-color: #FFF;
+    border-radius: 2px;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    text-align: center;
+    padding: 14px 0;
+}
+
+.login__button:hover{
+    opacity: .85;
+    transition: 2s;
+    cursor: pointer;
+}
+
+@media (max-width: 768px){
+    .login__button{
+        width: 260px;
+        margin: 173px auto 77px;
+        font-size: 16px;
+        line-height: 19px;
+        padding: 15px 0;
+    }
+}
+
+.login__label{
+    width: 358px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 30px
+}
+
+
+
+.login__label{
+    width: 358px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 30px;
+}
+
+.login__label:nth-child(2){
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px){
+    .login__label{
+        width: 238px;
+    }
+}
+
+.login__input{
+    width: 100%;
+    height: 20px;
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+    background-color: transparent;
+    outline: none;
+    transition: .5s;
+    font-family:  "inter", "Arial ", sans-serif;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    padding: 0;
+    color: #FFF;
+}
+
+.login__input:focus{
+    border: 1px solid rgba(26, 115, 168, .5);
+}
+
+.login__input::placeholder {
+    color: #CCC;
+}

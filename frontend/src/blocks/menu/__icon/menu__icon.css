@@ -1,0 +1,51 @@
+.menu__icon  {
+    display: none;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.menu__icon:hover  {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease 0s;
+}
+
+@media (max-width: 768px){
+    .menu__icon  {
+        display: block;
+        z-index: 5;
+        position: relative;
+        width: 24px;
+        height: 20px;
+        transition: all 0.3s ease 0s;
+    }
+
+    .menu__icon span,
+    .menu__icon::before,
+    .menu__icon::after {
+        left: 0;
+        position: absolute;
+        height: 12%;
+        width: 100%;
+        transition: all 0.3s ease 0s;
+        background-color: #FFF;
+    }
+
+    .menu__icon::before,
+    .menu__icon::after {
+        content: "";
+    }
+
+    .menu__icon::after {
+        bottom: 0;
+    }
+
+    .menu__icon::before {
+        top: 0;
+    }
+
+    .menu__icon span {
+        top: 50%;
+        transform: scale(1) translate(0px, -50%);
+    }
+}
