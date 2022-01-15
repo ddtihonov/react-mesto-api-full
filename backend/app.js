@@ -7,6 +7,7 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 require('dotenv').config();
 const { requestLogger, errorLogger } = require('./middlewares/Logger');
+const cors = require('./middlewares/cors');
 
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
@@ -22,6 +23,8 @@ app.use(cookieParser());
 app.use(helmet());
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
+
+app.use(cors);
 
 app.use(requestLogger); // подключаем логгер запросов
 
