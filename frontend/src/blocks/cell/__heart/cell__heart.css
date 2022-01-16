@@ -1,0 +1,15 @@
+.cell__heart{
+    width: 22px;
+    height: 19px;
+    background-image: url(../../../images/VectorStroke.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+}
+
+.cell__heart:hover{
+    opacity: .5;
+    transition: 2s;
+    cursor: pointer;
+}

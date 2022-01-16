@@ -1,0 +1,9 @@
+.cell__score-likes{
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+    margin: 3px auto auto;
+    color: #000;
+}

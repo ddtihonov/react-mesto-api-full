@@ -1,0 +1,9 @@
+.form__button_delete{
+    margin: 38px 36px 36px;
+}
+
+@media (max-width: 768px){
+    .form__button_delete{
+        margin: 38px 22px 25px;
+    }
+}
