@@ -105,7 +105,7 @@ export default function App() {
     function handleOutput() {
         if (localStorage.getItem('token')) {
             localStorage.removeItem('token');
-            navigate('/sign-in');
+            navigate('/signin');
             setLoggedIn(false);
         }
     }
@@ -198,7 +198,7 @@ export default function App() {
             .then(() => {
                 setSuccessRegister(true);
                 setIsInfoTooltip(true);
-                navigate('/sign-in');
+                navigate('/signin');
     
             setRegisterData({
                 email: '',
@@ -284,7 +284,7 @@ return (
                 </ProtectedRoute>    
                 }
             />
-            <Route exact path="/sign-up" element={
+            <Route exact path="/signup" element={
                 <Register
                     setCurrentRoute={setCurrentRoute}
                     onRegister={handleRegister}
@@ -292,7 +292,7 @@ return (
                     successRegister={successRegister}
                 />
             } /> 
-            <Route exact path="/sign-in" element={
+            <Route exact path="/signin" element={
                 <Login 
                     setCurrentRoute={setCurrentRoute}
                     onLogin={handleAuthorize}

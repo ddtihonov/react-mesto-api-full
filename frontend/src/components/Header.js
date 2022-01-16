@@ -20,7 +20,7 @@ export default function Header(props) {
             <div className={`header__burger ${isDataOpen ? 'active' : ''}`}>
                 <p className="header__text" >{props.email}</p>
                 <Link
-                    to="/sign-in"
+                    to="/signin"
                     className="header__link_mobile"
                     onClick={props.onOut}>
                     Выйти
@@ -44,7 +44,7 @@ export default function Header(props) {
                     <>
                         <p className="header__text" >{props.email}</p>
                         <Link
-                        to="/sign-in"
+                        to="/signin"
                         className="header__link"
                         onClick={props.onOut}
                         >
@@ -53,16 +53,16 @@ export default function Header(props) {
                     </>
                 ) : ( 
                 <>
-                    {(props.currentRoute === '/sign-in') ? (
+                    {(props.currentRoute === '/signin') ? (
                     <Link
-                        to="/sign-up"
+                        to="/signup"
                         className="header__link"
                     >
                         Регистрация
                     </Link>
                     ) : (
                     <Link
-                        to="/sign-in"
+                        to="/signin"
                         className="header__link"
                     >
                         Войти

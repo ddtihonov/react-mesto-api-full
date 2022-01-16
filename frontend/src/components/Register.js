@@ -26,7 +26,7 @@ export default function Register ({setCurrentRoute, onRegister }) {
     
 
     useEffect(() => {
-        setCurrentRoute('/sign-up');
+        setCurrentRoute('/signup');
     }, []);
 
         return(
@@ -60,7 +60,7 @@ export default function Register ({setCurrentRoute, onRegister }) {
             </form>
             <div className="register__box">
             <p className="register__text" >Уже зарегистрированы?</p>
-            <Link className="register__link" to="/sign-in">Войти</Link>
+            <Link className="register__link" to="/signin">Войти</Link>
             </div>
         </div>
     )

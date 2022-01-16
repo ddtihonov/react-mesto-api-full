@@ -25,7 +25,7 @@ export default function Login ({setCurrentRoute,  onLogin, loggedIn, navigate}) 
         }
 
     useEffect(() => {
-        setCurrentRoute('/sign-in');
+        setCurrentRoute('/signin');
     }, []);
 
     
