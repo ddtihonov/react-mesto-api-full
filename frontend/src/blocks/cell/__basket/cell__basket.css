@@ -1,0 +1,14 @@
+.cell__basket{
+    position: absolute;
+    background-image: url(../../../images/basket.svg);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    cursor: pointer;
+    top: 18px;
+    right: 15px;
+    width: 18px;
+    height: 19px;
+    border: none;
+    padding: 0;
+    visibility: hidden;
+}

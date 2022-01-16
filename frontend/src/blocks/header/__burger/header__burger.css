@@ -1,0 +1,7 @@
+.header__burger{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+    margin-bottom: 27px;
+}

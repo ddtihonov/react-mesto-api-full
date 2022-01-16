@@ -1,0 +1,17 @@
+.header__close-icon{
+    display: none;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    background-image: url(../../../images/CloseIcon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: .2s;
+}
+
+.header__close-icon:hover{
+    opacity: .6;
+    transition: .2s;
+}
