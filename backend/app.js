@@ -64,6 +64,7 @@ app.use('/cards', require('./routes/cards'));
 
 app.use(errors());
 
+// переход на несуществующий роут
 app.use((req, res, next) => {
   next(new NotFoundError('Нет такой страницы'));
 });
@@ -79,5 +80,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+  console.log(`Server started on ${PORT}`);
 });

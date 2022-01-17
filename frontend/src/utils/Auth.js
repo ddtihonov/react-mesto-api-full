@@ -44,7 +44,7 @@ class Auth {
 }
 
 const auth = new Auth({
-    baseAuthUrl: 'api.ddtihonov.students.nomoredomains.rocks',
+    baseAuthUrl: 'https://api.ddtihonov.students.nomoredomains.rocks',
     headers: {'Content-Type': 'application/json'}
 });
 

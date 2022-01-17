@@ -4,7 +4,8 @@ const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const allowedCors = [
   'https://ddtihonov.students.nomoredomains.rocks',
   'http://ddtihonov.students.nomoredomains.rocks',
-  'localhost:3000'
+  'https://localhost:3000',
+  'http://localhost:3000'
 ];
 
 module.exports = ((req, res, next) => {
