@@ -43,6 +43,20 @@ export default function App() {
     //стейт логина
     const [loggedIn, setLoggedIn] = useState(false);
 
+    console.log(localStorage.isAuth);
+
+    useEffect(() => {
+        if (localStorage.isAuth) {
+            auth.checkAuth()
+                .then((data) => {
+                    setCurrentEmail(data.email);
+                })
+                .catch((err) => {
+                    console.log(`Внимание! ${err}`);
+                });
+    }
+}, []);
+
     // запрос  данных пользователя
     useEffect(() => {
         if (loggedIn) {
@@ -103,11 +117,16 @@ export default function App() {
 
     //выход
     function handleOutput() {
-        if (localStorage.getItem('isAuth')) {
-            localStorage.removeItem('isAuth');
+        auth.deleteAuth()
+        .then((data) => {
+            setCurrentEmail('');
+            localStorage.removeItem('isAuth')
             navigate('/signin');
             setLoggedIn(false);
-        }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     //управление лайками
@@ -214,42 +233,22 @@ export default function App() {
                 console.log(`Внимание! ${err}`);
             });
     }
-
+    
     // авторизация
-    function handleAuthorize({ loginData, setLoginData }) {
-        auth.authorize(loginData)
+    function handleAuthorize({ password, email }) {
+        auth.authorize({ password, email })
             .then(() => {
-                setLoggedIn(true);
+                    setLoggedIn(true);
                     navigate('/');
                     localStorage.setItem('isAuth', true);
-                    setLoginData({
-                        email: '',
-                        password: '',
-                    });
+                    console.log(localStorage.isAuth);
+                    setCurrentEmail(email);
             })
             
             .catch((err) => {
                 console.log(`Внимание! ${err}`);
             });
     }
-
-    useEffect(() => {
-        if (localStorage.isAuth) {
-        auth.checkAuth()
-            .then((data) => {
-                if (data) {
-                    setCurrentEmail(data.email);
-                    setLoggedIn(true);
-                    navigate('/');
-                }
-            })
-            .catch((err) => {
-                console.log(`Внимание! ${err}`);
-            });
-    }
-}, []);
-
-
 
 return (
 <div className="page">

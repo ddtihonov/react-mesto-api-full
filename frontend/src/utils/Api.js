@@ -6,6 +6,7 @@ class Api {
 
     getUserInfo() {
         return fetch(`${this.baseUrl}/users/me`, {
+            credentials: 'include',
             headers: this.headers
         })
             .then(this._checkError);
@@ -13,6 +14,7 @@ class Api {
 
     setUserInfo(data) {
         return fetch(`${this.baseUrl}/users/me`, {
+            credentials: 'include',
             method: 'PATCH',
             headers: this.headers,
             body: JSON.stringify({
@@ -25,6 +27,7 @@ class Api {
 
     addAvatar(data) {
         return fetch(`${this.baseUrl}/users/me/avatar`, {
+            credentials: 'include',
             method: 'PATCH',
             headers: this.headers,
             body: JSON.stringify({
@@ -36,6 +39,7 @@ class Api {
 
     getInitialCards() {
         return fetch(`${this.baseUrl}/cards`, {
+            credentials: 'include',
             headers: this.headers
         })
             .then(this._checkError);
@@ -43,6 +47,7 @@ class Api {
     
     addCard(element) {
         return fetch(`${this.baseUrl}/cards`, {
+            credentials: 'include',
             method: 'POST', 
             headers: this.headers,
             body: JSON.stringify({
@@ -55,6 +60,7 @@ class Api {
 
     deleteCard(id) {
         return fetch(`${this.baseUrl}/cards/${id}`, {
+            credentials: 'include',
             method: 'DELETE',
             headers: this.headers
         })
@@ -63,6 +69,7 @@ class Api {
 
     changeLikeCardStatus(id, isLiked) {
         return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+            credentials: 'include',
             method: isLiked ? 'PUT' : 'DELETE',
             headers: this.headers,
         })
@@ -79,7 +86,7 @@ class Api {
 
 const api = new Api({
     baseUrl: 'https://api.ddtihonov.students.nomoredomains.rocks',
-headers: {'Content-Type': 'application/json'}
+    headers: {'Content-Type': 'application/json'}
 });
 
 export default api 

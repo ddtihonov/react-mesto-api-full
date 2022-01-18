@@ -27,6 +27,18 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+const deleteAuth = (req, res, next) => {
+  res
+    .clearCookie('token', {
+      maxAge: 0,
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+    })
+    .send({ message: 'Авторизация отменена!' });
+};
+
+
 const getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.status(200).send({ users }))
@@ -139,4 +151,5 @@ module.exports = {
   updateUserInfo,
   updateAvatar,
   login,
+  deleteAuth,
 };

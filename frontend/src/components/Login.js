@@ -2,26 +2,23 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 
 
-export default function Login ({setCurrentRoute,  onLogin, loggedIn, navigate}) {
+export default function Login ({setCurrentRoute,  onLogin}) {
 
-    const [loginData, setLoginData] = useState({
-        email: '',
-        password: '',
-    });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    function handleChangeLoginData(evt) {
-        const { name, value } = evt.target;
+    const handleChangeEmail = (evt) => {
+        setEmail(evt.target.value);
+    }
 
-        setLoginData({
-            ...loginData,
-            [name]: value,
-        });
-        }
+    const handleChangePassword = (evt) => {
+        setPassword(evt.target.value);
+    }
 
         function handleSubmit(evt) {
             evt.preventDefault();
         
-            onLogin({ loginData, setLoginData });
+            onLogin({ password, email });
         }
 
     useEffect(() => {
@@ -40,8 +37,8 @@ export default function Login ({setCurrentRoute,  onLogin, loggedIn, navigate}) 
                     id="email-input" placeholder="Email" 
                     minLength="6" maxLength="20" 
                     required
-                    value={loginData.email || ''}
-                    onChange={handleChangeLoginData}
+                    value={email}
+                    onChange={handleChangeEmail}
                     />
                     <span className="login__input-error email-input-error form__input-error"></span>
                 </label>
@@ -53,8 +50,8 @@ export default function Login ({setCurrentRoute,  onLogin, loggedIn, navigate}) 
                     placeholder="Пароль"  
                     minLength="6" 
                     maxLength="20" required
-                    value={loginData.password || ''}
-                    onChange={handleChangeLoginData}
+                    value={password}
+                    onChange={handleChangePassword}
                     />
                     <span className="login__input-error password-input-error form__input-error"></span>
                 </label>

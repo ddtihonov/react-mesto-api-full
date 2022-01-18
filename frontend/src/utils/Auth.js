@@ -6,6 +6,7 @@ class Auth {
 
     register(registerData) {
         return fetch(`${this.baseAuthUrl}/signup`, {
+            credentials: 'include',
             method: 'POST',
             headers: this.headers,
             body: JSON.stringify(registerData),
@@ -14,11 +15,15 @@ class Auth {
         .then(this._checkError);
     }
 
-    authorize(data) {
+    authorize({ password, email }) {
         return fetch(`${this.baseAuthUrl}/signin`, {
+            credentials: 'include',
             method: 'POST',
             headers: this.headers,
-            body: JSON.stringify(data),
+            body: JSON.stringify({
+                password: password,
+                email: email
+            }),
             })
 
         .then(this._checkError);
@@ -26,8 +31,18 @@ class Auth {
 
     checkAuth() {
         return fetch(`${this.baseAuthUrl}/users/me`, {
+            credentials: 'include',
             method: 'GET',
-            headers: {'Content-Type': 'application/json'},
+            headers: this.headers,
+        })
+        .then(this._checkError);
+    }
+
+    deleteAuth() {
+        return fetch(`${this.baseAuthUrl}/signout`, {
+            credentials: 'include',
+            method: 'DELETE',
+            headers: this.headers,
         })
         .then(this._checkError);
     }
