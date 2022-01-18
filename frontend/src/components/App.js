@@ -103,8 +103,8 @@ export default function App() {
 
     //выход
     function handleOutput() {
-        if (localStorage.getItem('token')) {
-            localStorage.removeItem('token');
+        if (localStorage.getItem('isAuth')) {
+            localStorage.removeItem('isAuth');
             navigate('/signin');
             setLoggedIn(false);
         }
@@ -218,17 +218,14 @@ export default function App() {
     // авторизация
     function handleAuthorize({ loginData, setLoginData }) {
         auth.authorize(loginData)
-            .then((data) => {
-                if (data.token) {
-                    setLoggedIn(true)
-                    navigate('/')
-                    localStorage.setItem('token', data.token);
-    
+            .then(() => {
+                setLoggedIn(true);
+                    navigate('/');
+                    localStorage.setItem('isAuth', true);
                     setLoginData({
                         email: '',
                         password: '',
                     });
-                }
             })
             
             .catch((err) => {
@@ -237,26 +234,20 @@ export default function App() {
     }
 
     useEffect(() => {
-        function handleTokenCheck() {
-            if (localStorage.getItem('token')) {
-            const token = localStorage.getItem('token');
-            auth.checkToken(token)
-                .then((data) => {
-                    if (data) {
-                        setCurrentEmail(data.data.email);
-                        setLoggedIn(true);
-                        navigate('/');
-                    }
-                })
-                .catch((err) => {
-                    console.log(`Внимание! ${err}`);
-                });
-        }
+        if (localStorage.isAuth) {
+        auth.checkAuth()
+            .then((data) => {
+                if (data) {
+                    setCurrentEmail(data.email);
+                    setLoggedIn(true);
+                    navigate('/');
+                }
+            })
+            .catch((err) => {
+                console.log(`Внимание! ${err}`);
+            });
     }
-
-    handleTokenCheck();
 }, []);
-
 
 
 

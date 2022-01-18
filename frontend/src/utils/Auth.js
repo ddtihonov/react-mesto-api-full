@@ -24,13 +24,10 @@ class Auth {
         .then(this._checkError);
     }
 
-    checkToken(token) {
+    checkAuth() {
         return fetch(`${this.baseAuthUrl}/users/me`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
+            headers: {'Content-Type': 'application/json'},
         })
         .then(this._checkError);
     }
