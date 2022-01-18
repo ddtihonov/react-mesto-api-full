@@ -1,8 +1,8 @@
 ### Проект: Место на React с регистрацией,авторизацией серверной частью на Яндекс.Облаке.
 ---
 
-Ссылка на проект: https://http://ddtihonov.students.nomoredomains.rocks/
-Ссылка на Backend проекта: http://api.ddtihonov.students.nomoredomains.rocks/
+Ссылка на проект: https://ddtihonov.students.nomoredomains.rocks/
+Ссылка на Backend проекта: https://api.ddtihonov.students.nomoredomains.rocks/
 Публичный IPv4 сервера: http://62.84.113.124
 
 ---
