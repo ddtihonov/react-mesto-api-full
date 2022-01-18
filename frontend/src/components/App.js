@@ -45,25 +45,29 @@ export default function App() {
 
     // запрос  данных пользователя
     useEffect(() => {
-        api.getUserInfo()
-            .then((userInfo) => {
-                setCurrentUser(userInfo);
-            })
-            .catch((err) => {
-                console.log(`Внимание! ${err}`);
-            });
-    }, []);
+        if (loggedIn) {
+            api.getUserInfo()
+                .then((userInfo) => {
+                    setCurrentUser(userInfo);
+                })
+                .catch((err) => {
+                    console.log(`Внимание! ${err}`);
+                });
+        }
+    }, [loggedIn]);
 
     //запроса массива данных карточек
     useEffect(() => {
-        api.getInitialCards()
-            .then((cardsInfo) => {
-                setCards(cardsInfo);
-            })
-            .catch((err) => {
-                console.log(`Внимание! ${err}`);
-            });
-    }, []);
+        if (loggedIn) {
+            api.getInitialCards()
+                .then((cardsInfo) => {
+                    setCards(cardsInfo);
+                })
+                .catch((err) => {
+                    console.log(`Внимание! ${err}`);
+                });
+        }
+    }, [loggedIn]);
     
     // обработчики открытя всех popup
     const handleEditAvatarClick = () => {
@@ -76,10 +80,6 @@ export default function App() {
 
     const handleEditProfileClick = () => {
         setIsEditProfilePopupOpen(true);
-    }
-
-    const handleDeleteCardClick = () => {
-        setIsDeleteCardPopupOpen(true);
     }
 
     const handleRegisterClick = () => {
