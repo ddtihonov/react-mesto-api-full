@@ -43,6 +43,8 @@ export default function App() {
     //стейт логина
     const [loggedIn, setLoggedIn] = useState(false);
 
+    //console.log(currentUser)
+
 // регистрация
 function handleRegister({ password, email }) {
     auth.register({ password, email })
@@ -62,7 +64,6 @@ function handleRegister({ password, email }) {
 function handleAuthorize({ password, email }) {
     auth.authorize({ password, email })
         .then((data) => {
-                console.log(data)
                 setLoggedIn(true);
                 navigate('/');
                 setCurrentEmail(email);
@@ -78,7 +79,6 @@ function handleAuthorize({ password, email }) {
 function handleOutput() {
     auth.deleteAuth()
     .then((data) => {
-        console.log(data)
         setCurrentEmail('')
         setLoggedIn(false)
         localStorage.removeItem('isAuth')
@@ -88,25 +88,12 @@ function handleOutput() {
     }); 
 }
 
-    useEffect(() => {
-        if (localStorage.isAuth) {
-            auth.checkAuth()
-                .then((data) => {
-                    console.log(data)
-                    setCurrentEmail(data.email);
-                })
-                .catch((err) => {
-                    console.log(`Внимание! ${err}`);
-                });
-    }
-}, [loggedIn]);
-
     // запрос  данных пользователя
     useEffect(() => {
         if (loggedIn) {
             api.getUserInfo()
-                .then((userInfo) => {
-                    setCurrentUser(userInfo);
+                .then((user) => {
+                    setCurrentUser(user);
                 })
                 .catch((err) => {
                     console.log(`Внимание! ${err}`);
@@ -115,17 +102,17 @@ function handleOutput() {
     }, [loggedIn]);
 
     //запроса массива данных карточек
-    useEffect(() => {
-        if (loggedIn) {
-            api.getInitialCards()
-                .then((cardsInfo) => {
-                    setCards(cardsInfo);
-                })
-                .catch((err) => {
-                    console.log(`Внимание! ${err}`);
-                });
-        }
-    }, [loggedIn]);
+    //useEffect(() => {
+        //if (loggedIn) {
+            //api.getInitialCards()
+                //.then((cardsInfo) => {
+                    //setCards(cardsInfo);
+                //})
+                //.catch((err) => {
+                    //console.log(`Внимание! ${err}`);
+                //});
+        //}
+    //}, [loggedIn]);
     
     // обработчики открытя всех popup
     const handleEditAvatarClick = () => {

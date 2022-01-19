@@ -31,15 +31,6 @@ class Auth {
         .then(this._checkError);
     }
 
-    checkAuth() {
-        return fetch(`${this.baseAuthUrl}/users/me`, {
-            credentials: 'include',
-            method: 'GET',
-            headers: this.headers,
-        })
-        .then(this._checkError);
-    }
-
     deleteAuth() {
         return fetch(`${this.baseAuthUrl}/signout`, {
             credentials: 'include',
