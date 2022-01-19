@@ -4,24 +4,22 @@ import { useEffect, useState } from 'react';
 
 export default function Register ({setCurrentRoute, onRegister }) {
 
-    const [registerData, setRegisterData] = useState({
-        email: '',
-        password: '',
-    });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    function handleChangeRegisterData(evt) {
-        const { name, value } = evt.target;
-    
-        setRegisterData({
-            ...registerData,
-            [name]: value,
-        });
+    const handleChangeEmail = (evt) => {
+        setEmail(evt.target.value);
     }
+
+    const handleChangePassword = (evt) => {
+        setPassword(evt.target.value);
+    }
+
 
     function handleSubmit(evt) {
         evt.preventDefault();
     
-        onRegister({ registerData, setRegisterData });
+        onRegister({ password, email });
     }
     
 
@@ -37,8 +35,8 @@ export default function Register ({setCurrentRoute, onRegister }) {
                     <input className="register__input"
                     type="email" 
                     name="email"
-                    value={registerData.email || ''}
-                    onChange={handleChangeRegisterData} 
+                    value={email}
+                    onChange={handleChangeEmail} 
                     id="email-input" placeholder="Email" 
                     minLength="6" maxLength="20" 
                     required/>
@@ -48,8 +46,8 @@ export default function Register ({setCurrentRoute, onRegister }) {
                     <input className="register__input"
                     type="password" 
                     name="password"
-                    value={registerData.password || ''}
-                    onChange={handleChangeRegisterData} 
+                    value={password}
+                    onChange={handleChangePassword} 
                     id="password-input" 
                     placeholder="Пароль"  
                     minLength="6" 

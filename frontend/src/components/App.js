@@ -43,19 +43,63 @@ export default function App() {
     //стейт логина
     const [loggedIn, setLoggedIn] = useState(false);
 
-    console.log(localStorage.isAuth);
+// регистрация
+function handleRegister({ password, email }) {
+    auth.register({ password, email })
+        .then(() => {
+            setSuccessRegister(true);
+            setIsInfoTooltip(true);
+            navigate('/signin');
+    })
+        .catch((err) => {
+            setSuccessRegister(false);
+            setIsInfoTooltip(true);        
+            console.log(`Внимание! ${err}`);
+        });
+}
+
+// авторизация
+function handleAuthorize({ password, email }) {
+    auth.authorize({ password, email })
+        .then((data) => {
+                console.log(data)
+                setLoggedIn(true);
+                navigate('/');
+                setCurrentEmail(email);
+                localStorage.setItem('isAuth', true)
+        })
+        
+        .catch((err) => {
+            console.log(`Внимание! ${err}`);
+        });
+}
+
+//выход
+function handleOutput() {
+    auth.deleteAuth()
+    .then((data) => {
+        console.log(data)
+        setCurrentEmail('')
+        setLoggedIn(false)
+        localStorage.removeItem('isAuth')
+    })
+    .catch((err) => {
+        console.log(`Внимание! ${err}`);
+    }); 
+}
 
     useEffect(() => {
         if (localStorage.isAuth) {
             auth.checkAuth()
                 .then((data) => {
+                    console.log(data)
                     setCurrentEmail(data.email);
                 })
                 .catch((err) => {
                     console.log(`Внимание! ${err}`);
                 });
     }
-}, []);
+}, [loggedIn]);
 
     // запрос  данных пользователя
     useEffect(() => {
@@ -113,20 +157,6 @@ export default function App() {
         setImagePopupOpen(false);
         setIsDeleteCardPopupOpen(false);
         setIsInfoTooltip(false);
-    }
-
-    //выход
-    function handleOutput() {
-        auth.deleteAuth()
-        .then((data) => {
-            setCurrentEmail('');
-            localStorage.removeItem('isAuth')
-            navigate('/signin');
-            setLoggedIn(false);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
     }
 
     //управление лайками
@@ -210,45 +240,6 @@ export default function App() {
     
         return () => document.removeEventListener('keydown', handleEscClose);
     }, []);
-
-    // регистрация
-    function handleRegister({ registerData, setRegisterData }) {
-        auth.register(registerData)
-            .then(() => {
-                setSuccessRegister(true);
-                setIsInfoTooltip(true);
-                navigate('/signin');
-    
-            setRegisterData({
-                email: '',
-                password: '',
-            });
-        })
-            .catch((err) => {
-                setSuccessRegister(false);
-                setIsInfoTooltip(true);
-    
-            
-            
-                console.log(`Внимание! ${err}`);
-            });
-    }
-    
-    // авторизация
-    function handleAuthorize({ password, email }) {
-        auth.authorize({ password, email })
-            .then(() => {
-                    setLoggedIn(true);
-                    navigate('/');
-                    localStorage.setItem('isAuth', true);
-                    console.log(localStorage.isAuth);
-                    setCurrentEmail(email);
-            })
-            
-            .catch((err) => {
-                console.log(`Внимание! ${err}`);
-            });
-    }
 
 return (
 <div className="page">

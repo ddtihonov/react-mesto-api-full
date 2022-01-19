@@ -4,14 +4,16 @@ class Auth {
         this.headers = headers
     };
 
-    register(registerData) {
+    register({ password, email }) {
         return fetch(`${this.baseAuthUrl}/signup`, {
             credentials: 'include',
             method: 'POST',
             headers: this.headers,
-            body: JSON.stringify(registerData),
-            })
-
+            body: JSON.stringify({
+                password: password,
+                email: email
+            }),
+        })
         .then(this._checkError);
     }
 

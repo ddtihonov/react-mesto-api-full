@@ -59,14 +59,7 @@ app.post('/signup',
   app.use(auth);
 
 // роуты требующие авторизации
-app.use('/signout',
-  celebrate({
-    cookies: Joi.object().keys({
-    token: Joi.string().required().min(20),
-    }),
-  }),
-
-  deleteAuth);
+app.use('/signout', deleteAuth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
