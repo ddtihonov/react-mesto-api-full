@@ -9,7 +9,7 @@ require('dotenv').config();
 const { requestLogger, errorLogger } = require('./middlewares/Logger');
 const cors = require('./middlewares/cors');
 
-const { login, createUser} = require('./controllers/users');
+const { login, createUser, deleteAuth} = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { ValidationLink } = require('./utils/variables');
 const NotFoundError = require('./errors/NotFoundError');
@@ -59,6 +59,7 @@ app.post('/signup',
   app.use(auth);
 
 // роуты требующие авторизации
+app.use('/signout', deleteAuth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 

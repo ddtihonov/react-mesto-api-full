@@ -44,9 +44,6 @@ export default function App() {
     //стейт логина
     const [loggedIn, setLoggedIn] = useState(false);
 
-
-    console.log(currentUser)
-    
 // регистрация
 function handleRegister({ password, email }) {
     auth.register({ password, email })
