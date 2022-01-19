@@ -18,6 +18,7 @@ import EditAvatarPopup from './EditAvatarPopup.js'
 import AddPlacePopup from './AddPlacePopup.js';
 
 
+
 export default function App() {
 
     const navigate = useNavigate();
@@ -43,8 +44,9 @@ export default function App() {
     //стейт логина
     const [loggedIn, setLoggedIn] = useState(false);
 
-    //console.log(currentUser)
 
+    console.log(currentUser)
+    
 // регистрация
 function handleRegister({ password, email }) {
     auth.register({ password, email })
@@ -77,23 +79,18 @@ function handleAuthorize({ password, email }) {
 
 //выход
 function handleOutput() {
-    auth.deleteAuth()
-    .then((data) => {
         setCurrentEmail('')
         setLoggedIn(false)
+        setCurrentUser({});
         localStorage.removeItem('isAuth')
-    })
-    .catch((err) => {
-        console.log(`Внимание! ${err}`);
-    }); 
 }
 
     // запрос  данных пользователя
     useEffect(() => {
         if (loggedIn) {
             api.getUserInfo()
-                .then((user) => {
-                    setCurrentUser(user);
+                .then((userInfo) => {
+                    setCurrentUser(userInfo);
                 })
                 .catch((err) => {
                     console.log(`Внимание! ${err}`);

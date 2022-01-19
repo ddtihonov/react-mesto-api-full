@@ -10,7 +10,7 @@ export default function Main (props) {
         <section className="profile">
             <button className="profile__image-link" onClick={props.onEditAvatar}><img className="profile__avatar"  src={currentUser.avatar} alt="Аватар"/></button>
             <div className="profile__info">
-                <h1 className="profile__name">{currentUser && currentUser.name}</h1>
+                <h1 className="profile__name">{currentUser.name}</h1>
                 <button className="profile__changes-button link-aim" onClick={props.onEditProfile} type="button" aria-label="смена пользователя"></button>
                 <p className="profile__profession">{currentUser.about}</p>
             </div>
