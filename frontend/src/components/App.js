@@ -44,7 +44,6 @@ export default function App() {
     //стейт логина
     const [loggedIn, setLoggedIn] = useState(false);
 
-    
 // регистрация
 function handleRegister({ password, email }) {
     auth.register({ password, email })
@@ -103,17 +102,17 @@ function handleOutput() {
     }, [loggedIn]);
 
     //запроса массива данных карточек
-    //useEffect(() => {
-        //if (loggedIn) {
-            //api.getInitialCards()
-                //.then((cardsInfo) => {
-                    //setCards(cardsInfo);
-                //})
-                //.catch((err) => {
-                    //console.log(`Внимание! ${err}`);
-                //});
-        //}
-    //}, [loggedIn]);
+    useEffect(() => {
+        if (loggedIn) {
+            api.getInitialCards()
+                .then((cardsInfo) => {
+                    setCards(cardsInfo.reverse());
+                })
+                .catch((err) => {
+                    console.log(`Внимание! ${err}`);
+                });
+        }
+    }, [loggedIn]);
     
     // обработчики открытя всех popup
     const handleEditAvatarClick = () => {
@@ -149,9 +148,10 @@ function handleOutput() {
 
     //управление лайками
     function handleCardLike(card) {
-        const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    
-        api.changeLikeCardStatus(card._id, !isLiked)
+        const isLiked = card.likes.some((i) => i === currentUser._id);
+        console.log(card._id);
+        console.log(isLiked);
+        api.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
                 setCards((state) =>
                 state.map((c) => (c._id === card._id ? newCard : c))

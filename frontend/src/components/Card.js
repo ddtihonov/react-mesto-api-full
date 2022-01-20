@@ -1,42 +1,42 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function Card (props) {
+export default function Card ({card, onCardClick, onCardLike, onCardDelete}) {
     const currentUser = useContext(CurrentUserContext);
 
-    const isOwn = props.data.owner._id === currentUser._id;
+    const isOwn = card.owner === currentUser._id;
 
     const cardDeleteButtonClassName = `cell__basket ${
         isOwn ? 'cell__basket_opened' : ''
     }`;
 
-    const isLiked = props.data.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     const cardLikeButtonClassName = `cell__heart ${
         isLiked ? 'cell__heart_black' : ''
     }`;
 
     function cardClick () {
-        props.onCardClick(props.data);
+        onCardClick(card);
     }
 
     function handleLikeClick() {
-        props.onCardLike(props.data);
+        onCardLike(card);
     }
 
     function handleDeleteClick() {
-        props.onCardDelete(props.data);
+        onCardDelete(card);
     }
 
     return (
         <li className="cell">
         <button className={cardDeleteButtonClassName} type="button" aria-label="корзина" onClick={handleDeleteClick}></button>
-        <a className="cell__image-link"  href="#" onClick={cardClick}><img className="cell__image" src={props.data.link} alt={props.data.name}/></a>
+        <a className="cell__image-link"  href="#" onClick={cardClick}><img className="cell__image" src={card.link} alt={card.name}/></a>
         <div className="cell__info">
-            <h2 className="cell__caption">{props.data.name}</h2>
+            <h2 className="cell__caption">{card.name}</h2>
             <div className="cell__like">
                 <button className={cardLikeButtonClassName} onClick={handleLikeClick} type="button" aria-label="лайк"></button>
-                <p className="cell__score-likes">{props.data.likes.length}</p>
+                <p className="cell__score-likes">{card.likes.length}</p>
             </div>
         </div>
     </li> 
