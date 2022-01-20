@@ -63,9 +63,8 @@ function handleRegister({ password, email }) {
 function handleAuthorize({ password, email }) {
     auth.authorize({ password, email })
         .then((data) => {
-            setLoggedIn(true)
             localStorage.setItem('token', data.token);
-            navigate('/');
+            checkToken()
             setCurrentEmail(email);
             
         })
@@ -75,44 +74,37 @@ function handleAuthorize({ password, email }) {
         });
 }
 
-//выход
-function handleOutput() {
-    auth.deleteAuth()
-    .then((data) => {
-        setCurrentEmail('')
-        setLoggedIn(false)
-        setCurrentUser({});
-        localStorage.removeItem('token')
-    })
-    .catch((err) => {
-        console.log(`Внимание! ${err}`);
-    });     
+function checkToken() {
+    const token = localStorage.getItem('token');
+    console.log(token)
+    if (token) {
+        setLoggedIn(true);
+        navigate('/');
+    }
 }
 
-    // запрос  данных пользователя
-    useEffect(() => {
-        if (loggedIn) {
-            api.getUserInfo()
-                .then((user) => {
-                    setCurrentUser(user);
-                })
-                .catch((err) => {
-                    console.log(`Внимание! ${err}`);
-                });
-        }
-    }, [loggedIn]);
+//выход
+function handleOutput() {
+    setLoggedIn(false);
+    localStorage.removeItem('token');
+    setCurrentUser({}); 
+}
 
     //запроса массива данных карточек
     useEffect(() => {
+        checkToken()
+        navigate('/');
         if (loggedIn) {
-            api.getInitialCards()
-                .then((cardsInfo) => {
+            Promise.all([api.getUserInfo(), api.getInitialCards()])
+                .then(([user, cardsInfo]) => {
+                    setCurrentUser(user);
                     setCards(cardsInfo.reverse());
                 })
                 .catch((err) => {
                     console.log(`Внимание! ${err}`);
                 });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
     
     // обработчики открытя всех popup
