@@ -41,7 +41,7 @@ const deleteAuth = (req, res, next) => {
 
 const getAllUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(200).send({ users }))
+    .then((users) => res.status(200).send(users))
     .catch(next);
 };
 
@@ -50,7 +50,7 @@ const getUserById = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError ('Нет пользователя с таким _id' );
     })
-    .then((user) => res.status(200).send({ user }))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'Нет пользователя с таким _id') {
         throw new NotFoundError('Нет пользователя с таким _id');
@@ -72,13 +72,7 @@ const createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => res.status(200).send({
-      name: user.name,
-      about: user.about,
-      avatar: user.avatar,
-      email: user.email,
-      _id: user._id,
-    }))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new IncorrectDataError('Введены некорректиные данные');
@@ -104,7 +98,7 @@ const updateUserInfo = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError ('Нет пользователя с таким _id' );
     })
-    .then((user) => res.status(200).send({ user }))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'Нет пользователя с таким _id') {
         throw new NotFoundError('Нет пользователя с таким _id');
@@ -131,7 +125,7 @@ const updateAvatar = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError ('Нет пользователя с таким _id' );
     })
-    .then((user) => res.status(200).send({ user }))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'Нет пользователя с таким _id') {
         throw new NotFoundError('Нет пользователя с таким _id');

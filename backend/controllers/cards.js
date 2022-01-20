@@ -5,7 +5,7 @@ const AuthorizationError = require('../errors/AuthorizationError');
 
 const getAllCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.status(200).send({ cards }))
+    .then((cards) => res.status(200).send(cards))
     .catch(next);
 };
 
@@ -13,7 +13,7 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   Card.create({ name, link, owner: req.user._id })
-    .then((card) => res.status(200).send({ card }))
+    .then((card) => res.status(200).send(card))
       .catch((err) => {
         if (err.name === 'ValidationError') {
           throw new IncorrectDataError('Введены некорректиные данные');
@@ -55,7 +55,7 @@ const likeCard = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError ('Нет карточки с таким _id');
     })
-    .then((card) => res.status(200).send({ card }))
+    .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.message === 'Нет карточки с таким _id') {
         throw new NotFoundError('Нет карточки с таким _id');
@@ -75,7 +75,7 @@ const dislikeCard = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError ('Нет карточки с таким _id');
     })
-    .then((card) => res.status(200).send({ card }))
+    .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.message === 'Нет карточки с таким _id') {
         throw new NotFoundError('Нет карточки с таким _id');

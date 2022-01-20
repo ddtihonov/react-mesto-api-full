@@ -31,6 +31,15 @@ class Auth {
         .then(this._checkError);
     }
 
+    deleteAuth() {
+        return fetch(`${this.baseAuthUrl}/signout`, {
+            credentials: 'include',
+            method: 'DELETE',
+            headers: this.headers,
+        })
+        .then(this._checkError);
+    }
+
     _checkError(res) {
         if (res.ok) {
             return res.json();

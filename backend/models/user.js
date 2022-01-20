@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
 
 // проверка почты и пароля
 userSchema.statics.findUserByCredentials = function (email, password) {
-  if (!password || password.length < 8) {
+  if (!password || password.length < 6) {
     throw new AuthentificationError('Неправильные почта или пароль');
   }
   return this.findOne({ email }).select('+password')

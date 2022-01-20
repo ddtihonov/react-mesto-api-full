@@ -44,6 +44,7 @@ export default function App() {
     //стейт логина
     const [loggedIn, setLoggedIn] = useState(false);
 
+    
 // регистрация
 function handleRegister({ password, email }) {
     auth.register({ password, email })
@@ -76,18 +77,24 @@ function handleAuthorize({ password, email }) {
 
 //выход
 function handleOutput() {
+    auth.deleteAuth()
+    .then((data) => {
         setCurrentEmail('')
         setLoggedIn(false)
         setCurrentUser({});
         localStorage.removeItem('isAuth')
+    })
+    .catch((err) => {
+        console.log(`Внимание! ${err}`);
+    });     
 }
 
     // запрос  данных пользователя
     useEffect(() => {
         if (loggedIn) {
             api.getUserInfo()
-                .then((userInfo) => {
-                    setCurrentUser(userInfo);
+                .then((user) => {
+                    setCurrentUser(user);
                 })
                 .catch((err) => {
                     console.log(`Внимание! ${err}`);
