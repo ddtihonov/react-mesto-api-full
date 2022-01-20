@@ -63,10 +63,11 @@ function handleRegister({ password, email }) {
 function handleAuthorize({ password, email }) {
     auth.authorize({ password, email })
         .then((data) => {
-                setLoggedIn(true);
-                navigate('/');
-                setCurrentEmail(email);
-                localStorage.setItem('isAuth', true)
+            setLoggedIn(true)
+            localStorage.setItem('token', data.token);
+            navigate('/');
+            setCurrentEmail(email);
+            
         })
         
         .catch((err) => {
@@ -81,7 +82,7 @@ function handleOutput() {
         setCurrentEmail('')
         setLoggedIn(false)
         setCurrentUser({});
-        localStorage.removeItem('isAuth')
+        localStorage.removeItem('token')
     })
     .catch((err) => {
         console.log(`Внимание! ${err}`);
@@ -149,8 +150,6 @@ function handleOutput() {
     //управление лайками
     function handleCardLike(card) {
         const isLiked = card.likes.some((i) => i === currentUser._id);
-        console.log(card._id);
-        console.log(isLiked);
         api.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
                 setCards((state) =>

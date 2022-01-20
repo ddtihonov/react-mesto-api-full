@@ -10,6 +10,6 @@
 
 .cell__heart:hover{
     opacity: .5;
-    transition: 2s;
+    transition: 300ms;
     cursor: pointer;
 }
