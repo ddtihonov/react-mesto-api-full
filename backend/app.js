@@ -9,7 +9,7 @@ require('dotenv').config();
 const { requestLogger, errorLogger } = require('./middlewares/Logger');
 const cors = require('./middlewares/cors');
 
-const { login, createUser} = require('./controllers/users');
+const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { ValidationLink } = require('./utils/variables');
 const NotFoundError = require('./errors/NotFoundError');
@@ -35,16 +35,19 @@ app.get('/crash-test', () => {
 });
 
 // роуты, не требующие авторизации
-app.post('/signin',
+app.post(
+  '/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
       password: Joi.string().required().min(6),
     }),
   }),
-  login);
+  login,
+);
 
-app.post('/signup',
+app.post(
+  '/signup',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
@@ -54,9 +57,10 @@ app.post('/signup',
       password: Joi.string().required().min(6),
     }),
   }),
-  createUser);
+  createUser,
+);
 
-  app.use(auth);
+app.use(auth);
 
 // роуты требующие авторизации
 app.use('/users', require('./routes/users'));
@@ -71,7 +75,7 @@ app.use((req, res, next) => {
 
 app.use(errorLogger); // подключаем логгер ошибок - после роутов и до обработчиков ошибок
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(err.statusCode).send({
     message: err.statusCode === 500
       ? 'На сервере произошла ошибка'

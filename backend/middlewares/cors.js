@@ -5,9 +5,9 @@ const allowedCors = [
   'https://ddtihonov.students.nomoredomains.rocks',
   'http://ddtihonov.students.nomoredomains.rocks',
   'https://localhost:3000',
-  'http://localhost:3000'
+  'http://localhost:3000',
 ];
-
+// eslint-disable-next-line consistent-return
 module.exports = ((req, res, next) => {
   const { origin } = req.headers; // источник запроса - в переменную origin
   const { method } = req; // тип запроса (HTTP-метод) в соотв. переменную

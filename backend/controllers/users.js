@@ -14,7 +14,8 @@ const login = (req, res, next) => {
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-        { expiresIn: '7d' });
+        { expiresIn: '7d' },
+      );
       return res
         .cookie('token', token, {
           maxAge: 3600000 * 24 * 7,
@@ -37,17 +38,18 @@ const getAllUsers = (req, res, next) => {
 const getUserById = (req, res, next) => {
   User.findById(req.params.userId ? req.params.userId : req.user._id)
     .orFail(() => {
-      throw new NotFoundError ('Нет пользователя с таким _id' );
+      throw new NotFoundError('Нет пользователя с таким _id');
     })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'Нет пользователя с таким _id') {
-        throw new NotFoundError('Нет пользователя с таким _id');
+        next(new NotFoundError('Нет пользователя с таким _id'));
       } else if (err.name === 'CastError') {
-        throw new IncorrectDataError ('Некоректный _id пользователя');
+        next(new IncorrectDataError('Некоректный _id пользователя'));
+      } else {
+        next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 const createUser = (req, res, next) => {
@@ -61,16 +63,21 @@ const createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => res.status(200).send(user))
+    .then(() => res.status(200).send({
+      user: {
+        name, about, avatar, email,
+      },
+    }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new IncorrectDataError('Введены некорректиные данные');
+        next(new IncorrectDataError('Введены некорректиные данные'));
       }
-      if (err.name === 'MongoError' && err.code === 11000) {
-        throw new EmailError ('Пользователь с таким email уже зарегестрирован');
+      if (err.code === 11000) {
+        next(new EmailError('Пользователь с таким email уже зарегестрирован'));
+      } else {
+        next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 const updateUserInfo = (req, res, next) => {
@@ -85,19 +92,20 @@ const updateUserInfo = (req, res, next) => {
     },
   )
     .orFail(() => {
-      throw new NotFoundError ('Нет пользователя с таким _id' );
+      throw new NotFoundError('Нет пользователя с таким _id');
     })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'Нет пользователя с таким _id') {
-        throw new NotFoundError('Нет пользователя с таким _id');
+        next(new NotFoundError('Нет пользователя с таким _id'));
       } else if (err.name === 'ValidationError') {
-        throw new IncorrectDataError ('Введены некорректиные данные');
+        next(new IncorrectDataError('Введены некорректиные данные'));
       } else if (err.name === 'CastError') {
-        throw new IncorrectDataError ('Некоректный _id пользователя');
+        next(new IncorrectDataError('Некоректный _id пользователя'));
+      } else {
+        next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 const updateAvatar = (req, res, next) => {
@@ -112,19 +120,20 @@ const updateAvatar = (req, res, next) => {
     },
   )
     .orFail(() => {
-      throw new NotFoundError ('Нет пользователя с таким _id' );
+      throw new NotFoundError('Нет пользователя с таким _id');
     })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'Нет пользователя с таким _id') {
-        throw new NotFoundError('Нет пользователя с таким _id');
+        next(new NotFoundError('Нет пользователя с таким _id'));
       } else if (err.name === 'ValidationError') {
-        throw new IncorrectDataError ('Введены некорректиные данные');
+        next(new IncorrectDataError('Введены некорректиные данные'));
       } else if (err.name === 'CastError') {
-        throw new IncorrectDataError ('Некоректный _id пользователя');
+        next(new IncorrectDataError('Некоректный _id пользователя'));
+      } else {
+        next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 module.exports = {

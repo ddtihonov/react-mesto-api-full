@@ -14,23 +14,24 @@ const createCard = (req, res, next) => {
 
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(200).send(card))
-      .catch((err) => {
-        if (err.name === 'ValidationError') {
-          throw new IncorrectDataError('Введены некорректиные данные');
-        }
-    })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new IncorrectDataError('Введены некорректиные данные'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
     .orFail(() => {
-      throw new NotFoundError ('Нет карточки с таким _id');
+      throw new NotFoundError('Нет карточки с таким _id');
     })
     .then((card) => {
       if (String(card.owner) !== req.user._id) {
         next(new AuthorizationError('Нельзя удалить чужую карточку'));
-      }else {
+      } else {
         card.remove()
           .then(() => res.status(200).send(card))
           .catch(next);
@@ -38,12 +39,13 @@ const deleteCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err.message === 'Нет карточки с таким _id') {
-        throw new NotFoundError('Нет карточки с таким _id');
+        next(new NotFoundError('Нет карточки с таким _id'));
       } else if (err.name === 'CastError') {
-        throw new IncorrectDataError('Передан некорректный _id');
+        next(new IncorrectDataError('Передан некорректный _id'));
+      } else {
+        next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 const likeCard = (req, res, next) => {
@@ -53,17 +55,18 @@ const likeCard = (req, res, next) => {
     { new: true },
   )
     .orFail(() => {
-      throw new NotFoundError ('Нет карточки с таким _id');
+      throw new NotFoundError('Нет карточки с таким _id');
     })
     .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.message === 'Нет карточки с таким _id') {
-        throw new NotFoundError('Нет карточки с таким _id');
+        next(new NotFoundError('Нет карточки с таким _id'));
       } else if (err.name === 'CastError') {
-        throw new IncorrectDataError('Передан некорректный _id');
+        next(new IncorrectDataError('Передан некорректный _id'));
+      } else {
+        next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 const dislikeCard = (req, res, next) => {
@@ -73,17 +76,18 @@ const dislikeCard = (req, res, next) => {
     { new: true },
   )
     .orFail(() => {
-      throw new NotFoundError ('Нет карточки с таким _id');
+      throw new NotFoundError('Нет карточки с таким _id');
     })
     .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.message === 'Нет карточки с таким _id') {
-        throw new NotFoundError('Нет карточки с таким _id');
+        next(new NotFoundError('Нет карточки с таким _id'));
       } else if (err.name === 'CastError') {
-        throw new IncorrectDataError('Передан некорректный _id');
+        next(new IncorrectDataError('Передан некорректный _id'));
+      } else {
+        next(err);
       }
-    })
-    .catch(next);
+    });
 };
 
 module.exports = {

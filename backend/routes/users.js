@@ -12,29 +12,35 @@ const {
 router.get('/', getAllUsers);
 router.get('/me', getUserById);
 
-router.get('/:userId',
+router.get(
+  '/:userId',
   celebrate({
     params: Joi.object().keys({
-    userId: Joi.string().length(24).hex().required(),
+      userId: Joi.string().length(24).hex().required(),
     }),
   }),
-getUserById);
+  getUserById,
+);
 
-router.patch('/me',
+router.patch(
+  '/me',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30).required(),
       about: Joi.string().min(2).max(30).required(),
     }),
   }),
-updateUserInfo);
+  updateUserInfo,
+);
 
-router.patch('/me/avatar',
+router.patch(
+  '/me/avatar',
   celebrate({
     body: Joi.object().keys({
       avatar: Joi.string().required().custom(ValidationLink),
     }),
   }),
-updateAvatar);
+  updateAvatar,
+);
 
 module.exports = router;

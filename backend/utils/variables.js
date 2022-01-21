@@ -1,4 +1,5 @@
 const validator = require('validator');
+
 const regexUrl = /https?:\/\/[\w{1,s}\W{1,s}]#?/;
 
 const ValidationLink = (value) => {
