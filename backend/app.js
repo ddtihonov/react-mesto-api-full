@@ -75,12 +75,13 @@ app.use((req, res, next) => {
 
 app.use(errorLogger); // подключаем логгер ошибок - после роутов и до обработчиков ошибок
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   res.status(err.statusCode).send({
     message: err.statusCode === 500
       ? 'На сервере произошла ошибка'
       : err.message,
   });
+  next();
 });
 
 app.listen(PORT, () => {
