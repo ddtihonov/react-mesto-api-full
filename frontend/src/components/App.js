@@ -258,7 +258,6 @@ return (
                     onLogin={handleAuthorize}
                     navigate={navigate}
                     loggedIn={loggedIn}
-
                 />
             } />
         </Routes>

@@ -5,7 +5,8 @@
 
 Ссылка на Backend проекта: https://api.ddtihonov.students.nomoredomains.rocks/
 
-Публичный IPv4 сервера: http://62.84.113.124
+Публичный IPv4 сервера: http://130.193.51.157
+
 
 ---
 ### О сайте:
