@@ -51,10 +51,19 @@ function handleRegister({ password, email }) {
             setSuccessRegister(true);
             setIsInfoTooltip(true);
             navigate('/signin');
+
+            setTimeout(() => {
+                setIsInfoTooltip(false)
+            },
+            1000)
     })
         .catch((err) => {
             setSuccessRegister(false);
-            setIsInfoTooltip(true);        
+            setIsInfoTooltip(true); 
+            setTimeout(() => {
+                setIsInfoTooltip(false)
+            },
+            1000)       
             console.log(`Внимание! ${err}`);
         });
 }

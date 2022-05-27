@@ -1,6 +1,8 @@
 ### Проект: Место на React с регистрацией, авторизацией серверной частью на Яндекс.Облаке.
 ---
+Ссылка на функционал проектa: https://ddtihonov.github.io/react-mesto-auth/
 
+В связи с окончанием периода оплаты облака доступ к серверу приостановлен и нижеперечисленные ссылки являются нерабочими.
 Ссылка на проект: https://ddtihonov.students.nomoredomains.rocks/
 
 Ссылка на Backend проекта: https://api.ddtihonov.students.nomoredomains.rocks/
@@ -23,8 +25,6 @@ Frontend:
 ---
 ### Технологический стек:
 - **React**
-- **JavaScript**
-- **HTML5**
 - **CSS3**
 - **Node.js**
 - **Express.js**
